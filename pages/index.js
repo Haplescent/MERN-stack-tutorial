@@ -1,7 +1,8 @@
-import Head from "next/head";
-import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
 
-const Index = () => (
+import Head from "next/head";
+
+const Index = ({ user }) => (
   <div style={{ padding: "10px 45px" }}>
     <Head>
       <title>Index page</title>
@@ -11,8 +12,23 @@ const Index = () => (
       />
     </Head>
     <p>Content on Index page</p>
-    <Button variant="contained">MUI button</Button>
+    <p>
+      Email:
+      {user.email}
+    </p>
   </div>
 );
+
+Index.getInitialProps = async (ctx) => ({ user: ctx.query.user });
+
+Index.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }),
+};
+
+Index.defaultProps = {
+  user: null,
+};
 
 export default Index;
